@@ -1,0 +1,37 @@
+{
+  "Comment": "State machine that maps over generated numbers and keeps original input",
+  "StartAt": "GenerateNumbers",
+  "States": {
+    "GenerateNumbers": {
+      "Type": "Task",
+      "Resource": "${GenerateNumbersFunctionArn}",
+      "Parameters": {
+        "name1.$": "$.name1",
+        "name2.$": "$.name2"
+      },
+      "ResultPath": "$.generated",
+      "Next": "ProcessEachNumber"
+    },
+    "ProcessEachNumber": {
+      "Type": "Map",
+      "ItemsPath": "$.generated.numbers",
+      "Parameters": {
+        "number.$": "$$.Map.Item.Value",
+        "name1.$": "$.name1",
+        "name2.$": "$.name2"
+      },
+      "Iterator": {
+        "StartAt": "SquareNumber",
+        "States": {
+          "SquareNumber": {
+            "Type": "Task",
+            "Resource": "${SquareNumberFunctionArn}",
+            "End": true
+          }
+        }
+      },
+      "End": true,
+      "MaxConcurrency": 50
+    }
+  }
+}

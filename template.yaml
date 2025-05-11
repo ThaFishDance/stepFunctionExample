@@ -1,0 +1,52 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: SAM template to run a Step Function that maps over a list of numbers and squares them.
+
+Globals:
+  Function:
+    Runtime: python3.12
+    Timeout: 10
+    MemorySize: 128
+
+Resources:
+  GenerateNumbersFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/generate_numbers/
+      Handler: app.lambda_handler
+
+  SquareNumberFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/square_number/
+      Handler: app.lambda_handler
+
+  SquareNumbersStateMachine:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      DefinitionUri: statemachine/state_machine.asl.json
+      DefinitionSubstitutions:
+        GenerateNumbersFunctionArn: !GetAtt GenerateNumbersFunction.Arn
+        SquareNumberFunctionArn: !GetAtt SquareNumberFunction.Arn
+      Role: !GetAtt StepFunctionExecutionRole.Arn
+
+  StepFunctionExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - states.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: StepFunctionInvokeLambdas
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - lambda:InvokeFunction
+                Resource: "*"

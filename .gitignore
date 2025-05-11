@@ -1,0 +1,102 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# PyCharm
+.idea/
+*.iml
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# AWS CLI / SDK files
+.aws/
+*.pem
+*.ppk
+
+# Local config
+*.log
+*.sqlite3
+*.db
+
+# Terraform (if applicable)
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+terraform.tfvars
+terraform.tfvars.json
+
+# Serverless Framework
+.serverless/
+
+# SAM build artifacts
+.aws-sam/
+
+# Docker
+*.pid
+*.pid.lock
+docker-compose.override.yml
+docker-compose.*.yml
+Dockerfile.*
+
+# Mac & Linux junk
+.DS_Store
+*.swp
+*.swo
+
+# Jupyter notebooks
+.ipynb_checkpoints
+
+# JetBrains (if not using Git's built-in excludes)
+.idea/

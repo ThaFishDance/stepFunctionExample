@@ -1,10 +1,10 @@
 {
   "Comment": "State machine that maps over generated numbers and keeps original input",
-  "StartAt": "GenerateNumbers",
+  "StartAt": "CreateTransmissions",
   "States": {
-    "GenerateNumbers": {
+    "CreateTransmissions": {
       "Type": "Task",
-      "Resource": "${GenerateNumbersFunctionArn}",
+      "Resource": "${CreateTransmissionsFunctionArn}",
       "Parameters": {
         "name1.$": "$.name1",
         "name2.$": "$.name2"
@@ -21,11 +21,11 @@
         "name2.$": "$.name2"
       },
       "Iterator": {
-        "StartAt": "SquareNumber",
+        "StartAt": "CreateSubmissions",
         "States": {
           "SquareNumber": {
             "Type": "Task",
-            "Resource": "${SquareNumberFunctionArn}",
+            "Resource": "${CreateSubmissionsFunctionArn}",
             "End": true
           }
         }

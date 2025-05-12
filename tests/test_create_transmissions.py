@@ -25,6 +25,6 @@ def test_lambda_handler_creates_csv_and_uploads_to_s3(moto_s3_bucket):
 
     # Optional: Validate CSV contents
     csv_obj = s3.get_object(Bucket=bucket_name, Key=csv_keys[0])
-    csv_lines = csv_obj["Body"].read().decode("utf-8").strip().split("\n")
+    csv_lines = csv_obj["Body"].read().decode("utf-8").strip().split("\r\n")
     assert csv_lines[0] == "TransmissionName"
     assert sorted(csv_lines[1:]) == sorted(["CI_dc1_0", "CI_dc2_0", "CI_dc3_0"])

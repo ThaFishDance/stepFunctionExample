@@ -33,8 +33,7 @@ def lambda_handler(event, context):
     s3 = boto3.client("s3")
     number = event["number"]
     KEY_NAME = get_s3_key(number)
-    name1 = event["name1"]
-    name2 = event["name2"]
+    name1 = event["job_id"]
     count = int(event.get("count", 1))  # default to 1 if not provided
     json_count = int(event.get("json_count", 1))
     print(f'test count: {count}')

@@ -9,16 +9,16 @@ Globals:
     MemorySize: 128
 
 Resources:
-  GenerateNumbersFunction:
+  CreateTransmissionsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: functions/generate_numbers/
+      CodeUri: functions/create_transmissions/
       Handler: app.lambda_handler
 
   SquareNumberFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: functions/square_number/
+      CodeUri: functions/create_submissions/
       Handler: app.lambda_handler
 
   SquareNumbersStateMachine:

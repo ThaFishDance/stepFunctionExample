@@ -18,7 +18,8 @@
       "Parameters": {
         "number.$": "$$.Map.Item.Value",
         "name1.$": "$.name1",
-        "name2.$": "$.name2"
+        "name2.$": "$.name2",
+        "job_id.$": "$.generated.job_id"
       },
       "Iterator": {
         "StartAt": "CreateSubmissions",

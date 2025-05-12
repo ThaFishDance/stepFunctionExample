@@ -24,9 +24,28 @@ def create_inner_zip(index, doc_code, json_count=1):
 
 
 def get_s3_key(job_id, number):
-    # TODO: get csv from s3, the s3 key is the job_id
-    #  and row data from row[number]
-    return "nested/outer_result.zip"
+    s3 = boto3.client('s3')
+    bucket = os.environ['BUCKET_NAME']
+    key = f"{event['job_id']}.csv"
+    row_index = event['number']
+
+    # Get CSV from S3
+    response = s3.get_object(Bucket=bucket, Key=key)
+    csv_content = response['Body'].read().decode('utf-8')
+
+    # Read into memory
+    csv_reader = csv.reader(StringIO(csv_content))
+    rows = list(csv_reader)
+
+    # Get transmission name for row index (skip header)
+    try:
+        transmission_name = rows[row_index + 1][0]  # +1 to skip header
+    except IndexError:
+        raise ValueError(f"Row index {row_index} out of bounds for CSV")
+
+    # Log or return for testing
+    print(f"Selected transmission name: {transmission_name}")
+    return f"{transmission_name}.zip"
 
 
 def lambda_handler(event, context):
